@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airbus Beluga XL</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style type="text/css">
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            font-family: Calibri, sans-serif;
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 5px 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: top 0.3s;
+        }
+        .navbar .logo img {
+            width: 100px;
+            height: auto;
+        }
+        .navbar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+        .navbar ul li {
+            margin: 0 15px;
+        }
+        .navbar ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .hero video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .hero .overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        .hero h1, .hero p {
+            margin: 0;
+            color: white;
+        }
+        .overview, .specs, .video-section, .engine {
+            padding: 50px 10%;
+            background-color: #000;
+        }
+        .overview h2, .specs h2, .video-section h2, .engine h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        .overview-content, .specs-content, .engine-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .overview-content img, .engine-content img {
+            width: 50%;
+            margin-right: 20px;
+        }
+        .details {
+            width: 50%;
+            color: #fff;
+        }
+        .details ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .details ul li {
+            margin-bottom: 10px;
+        }
+        .video-content {
+            text-align: center;
+        }
+        .video-content video {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+        }
+        .footer {
+            padding: 20px;
+            text-align: center;
+            background-color: #000;
+            color: white;
+        }
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .scroll-down {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .scroll-down svg {
+            fill: none;
+            stroke: white;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            animation: blink 1.5s ease-in-out infinite;
+        }
+        @keyframes blink {
+            0% {
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.5;
+            }
+        }
+        /* Additional styles to ensure text is white in specific sections */
+.specs-content ul li,
+.engine-content p {
+    color: white; /* Ensure text is white */
+}
+
+.specs-content ul {
+    color: white; /* Ensure text is white for the list */
+}
+
+.engine-content p {
+    color: white; /* Ensure text is white */
+}
+
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <img src="images/logo1.png" alt="Airbus Logo">
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <video autoplay muted loop>
+            <source src="images/BelugaXL - Fun Facts.mp4" type="video/mp4">
+          
+        </video>
+        <div class="overlay">
+            <h1></h1>
+            <p></p>
+        </div>
+    </div>
+
+    <!-- Overview Section -->
+    <div class="overview">
+        <h2>Overview</h2>
+        <div class="overview-content">
+            <img src="images/XL1.jpg" alt="Beluga XL">
+            <div class="details">
+                <p>The Airbus Beluga XL is a highly efficient and uniquely designed transport aircraft, specially developed to transport oversized cargo. With its impressive cargo capacity and advanced technology, it plays a crucial role in Airbus’s production and delivery operations.</p>
+                <ul>
+                    <li>Cargo Capacity: 53,000 kg / 116,000 lb</li>
+                    <li>Payload Volume: 1,400 m³ / 49,500 ft³</li>
+                    <li>Range: 4,000 km / 2,485 nmi</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Technical Specs Section -->
+    <div class="specs">
+        <h2>Technical Specifications</h2>
+        <div class="specs-content">
+            <ul>
+                <li><strong>Length:</strong> 63.1 m / 207 ft</li>
+                <li><strong>Wingspan:</strong> 60.3 m / 198 ft</li>
+                <li><strong>Height:</strong> 19.8 m / 65 ft</li>
+                <li><strong>Max Takeoff Weight:</strong> 227,000 kg / 500,000 lb</li>
+                <li><strong>Engines:</strong> Rolls-Royce Trent 700</li>
+                <li><strong>Max Cargo Volume:</strong> 1,400 m³ / 49,500 ft³</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Video Section -->
+    <div class="video-section">
+        <h2>Beluga XL in Action</h2>
+        <div class="video-content">
+            <video controls>
+                <source src="images/belugaxl.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+    <!-- Engine Section -->
+    <div class="engine">
+        <h2>Engine</h2>
+        <div class="engine-content">
+            <img src="images/700.png" alt="Engine">
+            <p>The Beluga XL is powered by the Rolls-Royce Trent 700 engines, known for their efficiency and reliability. These engines ensure optimal performance and low emissions, making the Beluga XL an environmentally friendly choice for oversized cargo transport.</p>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="footer">
+        <p>Airbus © 2024. All Rights Reserved. | <a href="privacy.html">Privacy Policy</a> | <a href="contact.html">Contact Us</a></p>
+    </div>
+
+    <script>
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.overview, .specs, .video-section, .engine, .hero');
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= window.innerHeight && rect.bottom >= 0) {
+                    section.querySelector('.details, .video-content').style
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airbus History</title>
+    <style>
+        body, html {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .header {
+            background-color: #002147;
+            color: white;
+            padding: 80px 20px 20px;
+            text-align: center;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        .section {
+            padding: 20px 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .section.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: #f9a825;
+            margin: 10px 0;
+        }
+
+        .section img {
+            width: 100%;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .event, .description, .sub-image {
+            background-color: white;
+            border-radius: 5px;
+            margin: 20px 0;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .sub-images-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+
+        .sub-image {
+            flex: 1;
+            margin: 10px;
+            max-width: 32%;
+        }
+
+        .sub-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .sub-image p {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .description {
+            font-size: 18px;
+            line-height: 1.8;
+            margin: 20px 0;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 3px 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: top 0.3s;
+        }
+
+        .navbar .logo img {
+            width: 100px;
+            height: auto;
+        }
+
+        .navbar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        .navbar ul li {
+            margin: 0 15px;
+        }
+
+        .navbar ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .footer {
+            background-color: #2b2b2b;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 20px;
+        }
+
+        .footer-left,
+        .footer-center,
+        .footer-right {
+            flex: 1;
+            min-width: 200px;
+            margin: 10px 0;
+        }
+
+        .footer-left h3,
+        .footer-center h4,
+        .footer-right h4 {
+            margin-bottom: 10px;
+        }
+
+        .footer-left p,
+        .footer-right p {
+            line-height: 1.4;
+            font-size: 14px;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .social-icons img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .footer-center ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-center ul li {
+            margin: 5px 0;
+        }
+
+        .footer-center ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .footer-center ul li a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            margin-top: 10px;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .hero img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .hero .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            z-index: 1;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        .hero .overlay h1 {
+            font-size: 3rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        .hero .overlay p {
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+     <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <img src="images/logo1.png" alt="Airbus Logo">
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+    </div>
+<div class="hero">
+    <div class="hero">
+    <img src="images/history.png" alt="Hero Image">
+    <div class="overlay">
+       <h1> <br>Our History
+       </h1>
+    </div>
+</div>
+    </div>
+</div>
+    
+   
+
+    <div class="container">
+        
+
+        <!-- 1960s Section -->
+        <div class="section">
+            <h2>1960s | Laying the Foundations</h2>
+            <img src="images/concord.png" alt="1960s Image">
+            <div class="description">
+                <p>The 1960s marked the beginning of a new era in European aerospace with the collaboration of several nations to develop a competitive alternative to American manufacturers. This decade laid the groundwork for what would eventually become Airbus, with key partnerships forming and initial designs being conceptualized.</p>
+            </div>
+            <div class="sub-images-container">
+                <div class="sub-image">
+                    <img src="images/concord2.jpeg" alt="1960s Sub Image 1">
+                    <h2>1969</h2>
+                    <h3>Concorde takes off on its 1st flight in Toulouse</h3>
+                    <p>The Concorde prototype, a symbol of European engineering prowess.</p>
+                </div>
+                <div class="sub-image">
+                    <img src="images/19603.webp" alt="1960s Sub Image 2">
+                    <h2>1969</h2>
+                    <h3>the first A300B built</h3>
+                    <p>Early design schematics for Airbus’s first commercial aircraft.</p>
+                </div>
+                <div class="sub-image">
+                    <img src="images/19604.jpeg" alt="1960s Sub Image 3">
+                    <h2>1969</h2>
+                    <h3>The collaboration</h3>
+                    <p>Collaborations between France and Germany, pivotal in Airbus’s formation.</p>
+                </div>
+            </div>
+            <div class="event">
+                <h3>1965</h3>
+                <p>The groundwork for Airbus began with discussions between France and Germany, setting the stage for a joint aerospace venture.</p>
+            </div>
+            <div class="event">
+                <h3>1969</h3>
+                <p>The A300, Airbus’s first aircraft model, was officially launched, signaling the start of a new competitor in the global aerospace market.</p>
+            </div>
+        </div>
+
+        <!-- 1970s Section -->
+        <div class="section">
+            <h2>1970s | European Collaboration</h2>
+            <img src="images/1970s-main.jpeg" alt="1970s Image">
+            <div class="description">
+                <p>The 1970s were a decade of significant growth and expansion for Airbus. The official formation of Airbus Industrie marked the consolidation of European aerospace efforts, and the first flights of the A300 set new standards in aviation for efficiency and capacity.</p>
+            </div>
+            <div class="sub-images-container">
+                <div class="sub-image">
+                    <img src="images/1970s-1.jpg" alt="1970s Sub Image 1">
+                    <h2>1972</h2>
+                    <h3>The world's first twin engine wide-body aircraft</h3>
+                    <p>The first A300B took to the skies, setting the stage for future innovations.</p>
+                </div>
+                <div class="sub-image">
+                    <img src="images/1970s-2.jpeg" alt="1970s Sub Image 2">
+                    <h2>1974</h2>
+                    <h3>A300B2 enters regular service for Air France</h3>
+                    <p>Initial commercial flights for Air France were from Paris to London.</p>
+                </div>
+                <div class="sub-image">
+                    <img src="images/1970s-3.jpeg" alt="1970s Sub Image 3">
+                    <h2>1978</h2>
+                    <h3>Eastern Airlines, Airbus' first US customer, orders 23 A300B4 aircraft</h>
+                    <p>After the breakthrough agreement with Eastern Airlines, there followed a series of orders that confirmed Airbus as a serious contender in the global aircraft manufacturing industry.</p>
+                </div>
+            </div>
+            <div class="event">
+                <h3>1970</h3>
+                <p>Airbus Industrie was formally established, marking the beginning of a new European aerospace consortium.</p>
+            </div>
+            <div class="event">
+                <h3>1972</h3>
+                <p>The A300B made its first flight, showcasing Airbus's innovative approach to aircraft design.</p>
+            </div>
+        </div>
+
+        <!-- 1980s Section -->
+        <div class="section">
+            <h2>1980s | New Stars Are Born</h2>
+            <img src="images/1980-s main.jpeg" alt="1980s Image">
+            <div class="description">
+                <p>During the 1980s, Airbus expanded its product line and continued to innovate with new technologies. The introduction of the A320, with its advanced fly-by-wire technology, marked a significant milestone in aviation history, setting new standards for efficiency and safety.</p>
+            </div>
+            <div class="sub-images-container">
+                <div class="sub-image">
+                    <img src="images/1980s-1.jpeg" alt="1980s Sub Image 1">
+                    <h2>1982</h2>
+                    <h3>Cockpit Advances</h3>
+                    <p>Delivery of the first A300 FFCC jetliner version, received by Indonesian airline Garuda, incorporating the Forward-Facing Crew Cockpit configuration, which enabled a two-pilot crew to fly the aircraft without the need for a flight engineer.</p>
+                </div>
+                <div class="sub-image">
+                    <img src="images/1980s-2.jpeg" alt="1980s Sub Image 2">
+                   <h2>1982</h2>
+                    <h3>First flight of A310</h3>
+                    <p>The “Airbus Family” began with the shorter-fuselage A310 and longer-range A300. Lufthansa and Swissair were the first carriers. </p>
+                </div>
+                <div class="sub-image">
+                    <img src="images/1980-s 3.jpeg" alt="1980s Sub Image 3">
+                    <h2>1987</h2>
+                    <h3>Launch of the A320</h3>
+                    <p>TWith the groundbreaking Fly-by-wire technology, the A320 Family would go on to record spectacular sales success, becoming the best-selling jetliner aircraft family ever.</p>
+                </div>
+
+            </div>
+            <div class="event">
+                <h3>1985</h3>
+                <p>The A320 was officially launched, introducing new levels of efficiency and automation.</p>
+            </div>
+            <div class="event">
+                <h3>1988</h3>
+                <p>The A320 entered service, quickly becoming a popular choice for airlines around the world.</p>
+            </div>
+        </div>
+
+        <!-- 1990s Section -->
+        <div class="section">
+            <h2>1990s | Global Expansion</h2>
+            <img src="images/1990s-main.jpeg" alt="1990s Image">
+            <div class="description">
+                <p>The 1990s saw Airbus solidify its position as a major player in the global aerospace industry. With the launch of the A330 and A340 families, Airbus offered a range of aircraft that catered to various market segments, from long-haul to regional flights.</p>
+            </div>
+            <div class="sub-images-container">
+                <div class="sub-image">
+                    <img src="images/1990s-1.jpeg" alt="1990s Sub Image 1">
+                    <h2>1991</h2>
+                    <h3>arrival of the A340</h3>
+                    <p>The ultra long-range four engined A340-300, able to seat 295 in a three-class configuration and fly 7,150 nautical miles/13,200 kilometres, was rolled out in October, 1991.</p>
+                </div>
+                <div class="sub-image">
+                    <img src="images/1990s-2.jpeg" alt="1990s Sub Image 2">
+                    <h2>1992</h2>
+                    <h3>Maiden flight of the medium to long-range A330</h3>
+                    <p>Carrying 335 passengers in two classes, the A330 marked another milestone with the first Rolls-Royce engine – the Trent 700 - on an Airbus aircraft.</p>
+                </div>
+                <div class="sub-image">
+                    <img src="images/1990s-3.jpeg" alt="1990s Sub Image 3">
+                    <h2>1996</h2>
+                    <h3>Super jumbo A3XX</h3>
+                    <p>Airbus Industrie sets up Large Aircraft Division, to develop the super jumbo A3XX, later designated the A380.</p>
+                </div>
+            </div>
+            <div class="event">
+                <h3>1992</h3>
+                <p>The A330 and A340 families were launched, offering greater range and capacity options.</p>
+            </div>
+            <div class="event">
+                <h3>1994</h3>
+                <p>The A330 and A340 entered service, further establishing Airbus as a key player in the wide-body market.</p>
+            </div>
+        </div>
+
+        <!-- 2000s Section -->
+        <div class="section">
+            <h2>2000s | A new Era Begins</h2>
+            <img src="images/2000s-main.jpeg" alt="2000s Image">
+            <div class="description">
+                <p>The 2000s were a groundbreaking decade for Airbus, highlighted by the introduction of the A380, the world's largest passenger airliner. This period also saw Airbus continue to innovate with new models and technologies, solidifying its position as a leader in the aerospace industry.</p>
+            </div>
+            <div class="sub-images-container">
+                <div class="sub-image">
+                    <img src="images/2000s-1.jpeg" alt="2000s Sub Image 1">
+                    <h2>2002</h2>
+                    <h3>First flight tests of the A318, the smallest member of the A320 family</h3>
+                    <p>Captain Bernd Schaefer confirmed that the aircraft handled as anticipated on its maiden flight, which kicked off the A318 flight test campaign.</p>
+                </div>
+                <div class="sub-image">
+                    <img src="images/2000s-2.jpeg" alt="2000s Sub Image 2">
+                    <h2>2005</h2>
+                    <h3>Unveiling the A380</h3>
+                    <p>The world's largest and most modern passenger jet is unveiled to the public. Later that year it would complete its maiden flight. .</p>
+                </div>
+                <div class="sub-image">
+                    <img src="images/2000s-3.jpeg" alt="2000s Sub Image 3">
+                    <h2>2007</h2>
+                    <h3>First flight of the A330 MRTT</h3>
+                    <p>Based on the successful A330-200 airliner, the A330 MRTT is the benchmark for new-generation multi-role tanker/transport.</p>
+                </div>
+            </div>
+            <div class="event">
+                <h3>2005</h3>
+                <p>The A380 made its maiden flight, capturing the world’s attention as the largest commercial aircraft ever built.</p>
+            </div>
+            <div class="event">
+                <h3>2007</h3>
+                <p>The A380 entered commercial service, offering unparalleled passenger capacity and comfort.</p>
+            </div>
+        </div>
+
+        <!-- 2010s Section -->
+        <div class="section">
+            <h2>2010s | We make it fly!</h2>
+            <img src="images/2010s-main.jpeg" alt="2010s Image">
+            <div class="description">
+                <p>The 2010s were marked by significant advancements in technology and a continued expansion of Airbus’s aircraft lineup. The introduction of the A350 XWB and the continued development of the A320neo series underscored Airbus's commitment to innovation and environmental sustainability.</p>
+            </div>
+            <div class="sub-images-container">
+                <div class="sub-image">
+                    <img src="images/2010s-1.jpeg" alt="2010s Sub Image 1">
+                    <h2>2011</h2>
+                    <h3>A record Breaking year!</h3>
+                    <p>Beginning with a milestone order: Virgin America’s acquisition of 60 A320s, Airbus hits above its 10,000th order mark. Also in January 2011, Airbus signed a Memorandum of Understanding with IndiGo for 180 A320s. </p>
+                </div>
+                <div class="sub-image">
+                    <img src="images/2010s-2.jpeg" alt="2010s Sub Image 2">
+                    <h2>2018</h2>
+                    <h3>The newest members of Airbus’ single-aisle aircraft family</h3>
+                    <p>A milestone partnership between Airbus and Canada’s Bombardier took effect in July with Airbus acquiring a majority stake in the C Series Aircraft Limited Partnership.  </p>
+                </div>
+                <div class="sub-image">
+                    <img src="images/2010s-3.jpeg" alt="2010s Sub Image 3">
+                    <h2>2019</h2>
+                    <h3>Growth of the A220</h3>
+                    <p>As of early 2019, more than 530 orders were placed for A220 aircraft. Airbus is to open a new assembly line for the aircraft at its U.S. manufacturing facility in Mobile, Alabama, which will build jetliners for U.S. customers.</p>
+                </div>
+
+            </div>
+
+        <div class="section">
+            <div class="sub-image">
+                    <img src="images/2010s-4.jpeg" alt="2010s Sub Image 3">
+                    <h2>2019</h2>
+                    <h3>A321XLR: Efficiency and extra-long range</h3>
+                    <p>After its official launch at the 2019 Paris Air Show, Airbus’ extra-long-range single-aisle A321XLR steadily built up a strong base of orders and commitments from customers around the world.</p>
+                </div>
+
+
+
+
+            <div class="event">
+                <h3>2013</h3>
+                <p>The Airbus A350 XWB made its maiden flight, introducing advanced aerodynamics, materials, and systems technologies.</p>
+            </div>
+            <div class="event">
+                <h3>2016</h3>
+                <p>The A350 XWB entered service with airlines, setting new standards in passenger comfort, efficiency, and range.</p>
+            </div>
+        </div>
+         <!-- Footer Section -->
+    <div class="footer">
+        <div class="footer-container">
+            <div class="footer-left">
+                <h3>Airbus</h3>
+                <p>Your trusted partner in aerospace innovation.</p>
+                <div class="social-icons">
+                    <a href="#"><img src="images/facebook-icon.png" alt="Facebook"></a>
+                    <a href="#"><img src="images/twitter-icon.jpg" alt="Twitter"></a>
+                    <a href="#"><img src="images/linkedin-icon.jpeg" alt="LinkedIn"></a>
+                    <a href="#"><img src="images/youtube-logo.png" alt="YouTube"></a>
+                </div>
+            </div>
+            <div class="footer-center">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-right">
+                <h4>Contact Us</h4>
+                <p>Email:<a href="">info@airbus.com</a></p>
+                <p>Phone: +123 456 7890</p>
+                <p>Address: 1 Avenue Eugène Freyssinet, 31707 Blagnac, France</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Airbus. All Rights Reserved.</p>
+        </div>
+    </div>
+
+</div>
+ <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const sections = document.querySelectorAll('.section');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>

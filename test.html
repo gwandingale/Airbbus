@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airbus A321 XLR</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <style type="text/css">
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            font-family: Calibri, sans-serif;
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 5px 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: top 0.3s;
+        }
+        .navbar .logo img {
+            width: 100px;
+            height: auto;
+        }
+        .navbar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+        .navbar ul li {
+            margin: 0 15px;
+        }
+        .navbar ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .hero video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .hero .overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        .hero h1, .hero p {
+            margin: 0;
+            color: white;
+        }
+        .gallery {
+            padding: 50px 10%;
+            background-color: #000;
+        }
+        .gallery h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        .gallery-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .gallery-content .card {
+            background-color: #222;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            width: 300px;
+            transition: transform 0.3s;
+            color: white;
+        }
+        .gallery-content .card:hover {
+            transform: scale(1.05);
+        }
+        .gallery-content img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        .footer {
+            padding: 20px;
+            text-align: center;
+            background-color: #000;
+            color: white;
+        }
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .scroll-down {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .scroll-down svg {
+            fill: none;
+            stroke: white;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            animation: blink 1.5s ease-in-out infinite;
+        }
+        @keyframes blink {
+            0% {
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.5;
+            }
+        }
+        /* Modal styles */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.8); /* Black background with opacity */
+            backdrop-filter: blur(5px); /* Optional: blur the background */
+        }
+        .modal-content {
+            position: relative;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            width: 80%;
+            max-width: 800px; /* Maximum width */
+            background-color: #000; /* Background color */
+            border: none; /* No border */
+            border-radius: 10px; /* Rounded corners */
+            color: white;
+            position: relative; /* Ensure that the close button is positioned relative to the modal content */
+        }
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+        }
+        .modal-close:hover {
+            color: #f4c542;
+        }
+        #view-3d-btn {
+            background-color: yellow;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #view-3d-btn:hover {
+            background-color: #f4c542;
+        }
+        #view-360-btn {
+            background-color: #6f42c1; /* Purple color */
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px; /* Space between the two buttons */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #view-360-btn:hover {
+            background-color: #5a2d91; /* Darker purple color on hover */
+        }
+
+        #view-360-btn svg {
+            margin-right: 5px; /* Space between the icon and text */
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <img src="images/logo1.png" alt="Airbus Logo">
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <video autoplay muted loop>
+            <source src="images/gallery.mp4" type="video/mp4">
+        </video>
+        <div class="overlay"></div>
+    </div>
+
+    <!-- Gallery Section -->
+    <div class="gallery">
+        <h2>Aircraft Gallery</h2>
+        <div class="gallery-content">
+            <!-- Airbus A320 Card -->
+            <div class="card">
+                <img src="images/a320.jpg" alt="Airbus A320">
+                <h3>Airbus A320</h3>
+                <p>The Airbus A320 is a narrow-body aircraft designed for short to medium-haul routes.</p>
+                <button class="btn btn-primary know-more" data-model="a320-model" data-info='{"name":"Airbus A320", "description":"The Airbus A320 is a narrow-body aircraft designed for short to medium-haul routes. It features a spacious cabin and advanced technology.", "wingspan":"35.8 meters", "cruisingAltitude":"35,000 feet", "engineThrust":"27,000 lbs", "maximumSpeed":"870 km/h"}'>KNOW MORE</button>
+                <a id="view-360-link-a320" href="https://ccntservice.airbus.com/apps/cockpits/a320-CEO/full/"><button id="view-360-btn">
+                    <svg width="24" height="24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M2 12h20M12 2l4 10-4 10M12 2l-4 10 4 10"></path>
+                    </svg>View 360°</button>
+                </a>
+                <button id="view-3d-btn" data-model="a320-model.glb">VIEW IN 3D</button>
+            </div>
+
+            <!-- Add more cards as needed -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2024 Airbus. All Rights Reserved. | <a href="privacy.html">Privacy Policy</a></p>
+    </div>
+
+    <div class="scroll-down">
+        <svg width="24" height="24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 8v8M8 12h8"></path>
+        </svg>
+    </div>
+
+    <!-- Modals -->
+    <div id="modal-a320" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('modal-a320')">&times;</span>
+            <h2>Airbus A320</h2>
+            <p>The Airbus A320 is a narrow-body aircraft designed for short to medium-haul routes. It features a spacious cabin and advanced technology.</p>
+            <p>Wingspan: 35.8 meters</p>
+            <p>Cruising Altitude: 35,000 feet</p>
+            <p>Engine Thrust: 27,000 lbs</p>
+            <p>Maximum Speed: 870 km/h</p>
+        </div>
+    </div>
+
+    <!-- Script to handle modal -->
+    <script>
+        document.querySelectorAll('.know-more').forEach(button => {
+            button.addEventListener('click', function() {
+                const modalId = `modal-${this.dataset.model}`;
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.style.display = 'block';
+                }
+            });
+        });
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airbus</title>
+    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            font-family: Calibri, sans-serif;
+        }
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background: url('.jpg') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 5px 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: top 0.3s;
+        }
+        .navbar .logo img {
+            width: 100px;
+            height: auto;
+        }
+        .navbar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+        .navbar ul li {
+            margin: 0 15px;
+        }
+        .navbar ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .section {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        .section img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        .content {
+            z-index: 1;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+        .content h2 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        .content button {
+            margin-top: 1rem;
+            padding: 0.5rem 1.5rem;
+            border: none;
+            background-color: #1a1a1a;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .footer {
+            background-color: #1a1a1a;
+            padding: 10px 0;
+            text-align: center;
+            color: white;
+        }
+        .footer ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+        .footer ul li {
+            margin: 0 15px;
+        }
+        .footer ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .footer .info {
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        .scroll-down {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.scroll-down {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.scroll-down svg {
+    fill: none;
+    stroke: white;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    animation: blink 1.5s ease-in-out infinite;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.5;
+    }
+}
+.hero .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 1;
+        }
+        .hero h2 {
+            font-size: 12vw; /* Responsive font size */
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+.white-text {
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 10px 0;
+    
+}
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <img src="images/logo1.png" alt="Airbus Logo">
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+    </div>
+
+    <div class="hero">
+         <video autoplay muted loop>
+            <source src="images/theme.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="content">
+            <h2>Airbus</h2>
+            <h3>an aerospace company</h3>
+        </div>
+    </div>
+
+   <div class="section">
+    <img src="images/A321XLR-pax-Ex-10-9-23_clipdrop-enhance.webp" alt="A320XLR">
+    <div class="content">
+        <h2 class="white-text">A321XLR Family <br class="white-text">Extended Range for Global Reach</h2>
+        <button onclick="window.location.href='A321 Xlr.html';">LEARN MORE</button>
+    </div>
+</div>
+
+
+    <div class="section">
+        <img src="images/XL2.jpg" alt="Airbus BelugaXL">
+        <div class="content">
+            <h2 class="white-text">BelugaXL<br class="white-text">Specialized Transport for Oversized Cargo</h2>
+            <button onclick="window.location.href='BelugaXL.html';">LEARN MORE</button>
+        </div>
+    </div>
+
+    <div class="section">
+        <img src="images/background.jpg" alt="innovative solutions">
+        <div class="content">
+            <h2 class="white-text">AIRBUS<br class="white-text">DEFENCE,SPACE AND BETTER ENVIRONMENT</h2>
+            <button onclick="window.location.href='Defence and space.html';">LEARN MORE</button>
+        </div>
+    </div>
+
+    <div class="footer">
+        <ul>
+            <li><a href="index.html">AIRBUS © 2024</a></li>
+            <li><a href="privacy2.html">PRIVACY POLICY</a></li>
+            
+        </ul>
+        <div class="info">Airbus 2024. All Rights Reserved.</div>
+    </div>
+
+    <script>
+       window.addEventListener('scroll', () => {
+    const sections = document.querySelectorAll('.section, .hero');
+    sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= window.innerHeight && rect.bottom >= 0) {
+            section.querySelector('.content').style.opacity = 1;
+            section.querySelector('.content').style.transform = 'translateY(0)';
+            document.querySelector('.scroll-down').style.opacity = 1;
+        } else {
+            section.querySelector('.content').style.opacity = 0;
+            section.querySelector('.content').style.transform = 'translateY(50px)';
+            document.querySelector('.scroll-down').style.opacity = 0;
+        }
+        const content = document.querySelector('.hero .content');
+            const hero = document.querySelector('.hero');
+            const heroHeight = hero.offsetHeight;
+
+            // Calculate opacity based on scroll position
+            const scrollPosition = window.scrollY;
+            const opacity = Math.max(0, 1 - scrollPosition / heroHeight);
+
+            content.style.opacity = opacity;
+    });
+
+    const navbar = document.querySelector('.navbar');
+    const heroHeight = document.querySelector('.hero').offsetHeight;
+    if (window.scrollY > heroHeight) {
+        navbar.style.top = '-100px';
+    } else {
+        navbar.style.top = '0';
+    }
+});
+
+function scrollToNextSection(index) {
+    const sections = document.querySelectorAll('.section');
+    if (index < sections.length) {
+        sections[index].scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+
+    </script>
+    <div class="scroll-down">
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5 9l7 7 7-7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+</div>
+
+
+</body>
+</html>

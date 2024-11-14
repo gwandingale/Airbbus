@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airbus Defence and Space</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style type="text/css">
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            font-family: Calibri, sans-serif;
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 5px 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: top 0.3s;
+        }
+        .navbar .logo img {
+            width: 100px;
+            height: auto;
+        }
+        .navbar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+        .navbar ul li {
+            margin: 0 15px;
+        }
+        .navbar ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .hero video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .hero .overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        .hero h1, .hero p {
+            margin: 0;
+            color: white;
+        }
+        .section {
+            padding: 50px 10%;
+            background-color: #000;
+        }
+        .section h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        .section-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .section-content img {
+            width: 50%;
+            margin-right: 20px;
+        }
+        .details {
+            width: 50%;
+            color: #fff;
+        }
+        .details ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .details ul li {
+            margin-bottom: 10px;
+        }
+        .footer {
+            padding: 20px;
+            text-align: center;
+            background-color: #000;
+            color: white;
+        }
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .scroll-down {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .scroll-down svg {
+            fill: none;
+            stroke: white;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            animation: blink 1.5s ease-in-out infinite;
+        }
+        @keyframes blink {
+            0% {
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.5;
+            }
+        }
+        .mute-button {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    outline: none;
+}
+
+.mute-button:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+.zero-e-engine {
+    padding: 50px 10%;
+    background-color: #000;
+    color: white;
+}
+
+.engine-image-container {
+    position: relative;
+    text-align: center;
+}
+
+.engine-image-container img {
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+}
+
+.hotspot {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: blue;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.hotspot-icon {
+    width: 100%;
+    height: 100%;
+}
+
+.info-box {
+    margin-top: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 5px;
+    display: none; /* Initially hidden */
+}
+
+.info-box p {
+    margin: 0;
+}
+.engine-demo {
+    padding: 50px 10%;
+    background-color: #000;
+    color: white;
+    text-align: center;
+}
+
+.engine-demo h2 {
+    margin-bottom: 20px;
+}
+
+.video-demo video {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border: 2px solid white;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+
+
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <img src="images/logo1.png" alt="Airbus Logo">
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+    <video id="heroVideo" autoplay muted loop>
+        <source src="images/defencevideo.mp4" type="video/mp4">
+  
+    </video>
+    <div class="overlay">
+        <h1></h1>
+        <p></p>
+    </div>
+    <button id="muteButton" class="mute-button">🔊</button>
+</div>
+
+    <!-- A330 MRTT Section -->
+    <div class="section">
+        <h2>A330 MRTT</h2>
+        <div class="section-content">
+            <img src="images/A330 MRTT 2.jpeg" alt="A330 MRTT">
+            <div class="details">
+                <p>The A330 MRTT (Multi Role Tanker Transport) is the most capable new generation tanker, combat-proven, and with unique multi-role capabilities. It provides strategic air transport, aerial refueling, and medical evacuation capabilities.</p>
+                <ul>
+                    <li>Payload: 111 tonnes / 244,000 lbs</li>
+                    <li>Max Fuel Capacity: 111,000 kg / 245,000 lbs</li>
+                    <li>Range: 14,800 km / 8,000 nmi</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- A400M Section -->
+    <div class="section">
+        <h2>A400M</h2>
+        <div class="section-content">
+            <img src="images/a400m.jpg" alt="A400M">
+            <div class="details">
+                <p>The A400M is the most versatile airlifter currently available, combining the capability to transport strategic loads, with the ability to deliver even into tactical locations. It can carry the heaviest loads in the most severe conditions.</p>
+                <ul>
+                    <li>Payload: 37 tonnes / 81,600 lbs</li>
+                    <li>Range: 4,800 km / 2,600 nmi (with max payload)</li>
+                    <li>Top Speed: 780 km/h / 485 mph</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Eurofighter Typhoon Section -->
+    <div class="section">
+        <h2>Eurofighter Typhoon<br>(An Airbus,BAE Systems and Leonardo product)</h2>
+        <div class="section-content">
+            <img src="images/eurofighter.jpeg" alt="Eurofighter Typhoon">
+            <div class="details">
+                <p>The Eurofighter Typhoon is the world’s most advanced swing-role combat aircraft, providing simultaneously deployable air-to-air and air-to-surface capabilities. It is built to dominate the skies.</p>
+                <ul>
+                    <li>Max Speed: Mach 2+ (2,495 km/h / 1,550 mph)</li>
+                    <li>Range: 2,900 km / 1,800 miles</li>
+                    <li>Armament: 13 hardpoints for various weapons</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+ <div class="engine-demo">
+        <h2>Zero E Engine Demonstration</h2>
+        <div class="video-demo">
+            <video controls>
+                <source src="images/zeroe.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+    <!-- Zero E Engine Section -->
+<div class="zero-e-engine">
+    <h2>Zero E Hydrogen Turbojet Engine</h2>
+    <div class="engine-image-container">
+        <img src="images/zeroE!.jpg" alt="Zero E Engine" id="engineImage">
+       
+            
+        </div>
+
+    </div>
+    <div class="info-box" id="infoBox">
+        <p id="infoText"></p>
+    </div>
+</div>
+
+
+    <!-- Footer Section -->
+    <div class="footer">
+        <p>Airbus Defence and Space © 2024. All Rights Reserved. | <a href="privacy.html">Privacy Policy</a> | <a href="contact.html">Contact Us</a></p>
+    </div>
+
+   <script>
+    // Handling the mute/unmute button for the hero video
+    const video = document.getElementById('heroVideo');
+    const muteButton = document.getElementById('muteButton');
+
+    muteButton.addEventListener('click', () => {
+        if (video.muted) {
+            video.muted = false;
+            muteButton.textContent = '🔊'; // Change icon to indicate sound is on
+        } else {
+            video.muted = true;
+            muteButton.textContent = '🔇'; // Change icon to indicate sound is off
+        }
+    });
+
+    // Handling hotspot clicks to display information
+    document.querySelectorAll('.hotspot').forEach(hotspot => {
+        hotspot.addEventListener('click', () => {
+            const info = hotspot.getAttribute('data-info');
+            document.getElementById('infoText').innerText = info;
+            document.getElementById('infoBox').style.display = 'block';
+        });
+    });
+
+
+
+</script>
+
+</body>
+</html>

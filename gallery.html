@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airbus A321 XLR</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <style type="text/css">
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            font-family: Calibri, sans-serif;
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 5px 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: top 0.3s;
+        }
+        .navbar .logo img {
+            width: 100px;
+            height: auto;
+        }
+        .navbar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+        .navbar ul li {
+            margin: 0 15px;
+        }
+        .navbar ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .hero video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .hero .overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        .hero h1, .hero p {
+            margin: 0;
+            color: white;
+        }
+        .gallery {
+            padding: 50px 10%;
+            background-color: #000;
+        }
+        .gallery h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        .gallery-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .gallery-content .card {
+            background-color: #222;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            width: 300px;
+            transition: transform 0.3s;
+            color: white;
+        }
+        .gallery-content .card:hover {
+            transform: scale(1.05);
+        }
+        .gallery-content img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        .footer {
+            padding: 20px;
+            text-align: center;
+            background-color: #000;
+            color: white;
+        }
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .scroll-down {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .scroll-down svg {
+            fill: none;
+            stroke: white;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            animation: blink 1.5s ease-in-out infinite;
+        }
+        @keyframes blink {
+            0% {
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.5;
+            }
+        }
+        /* Modal styles */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.8); /* Black background with opacity */
+            backdrop-filter: blur(5px); /* Optional: blur the background */
+        }
+        .modal-content {
+            position: relative;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            width: 80%;
+            max-width: 800px; /* Maximum width */
+            background-color: #000; /* Background color */
+            border: none; /* No border */
+            border-radius: 10px; /* Rounded corners */
+            color: white;
+            position: relative; /* Ensure that the close button is positioned relative to the modal content */
+        }
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+        }
+        .modal-close:hover {
+            color: #f4c542;
+        }
+        #view-3d-btn {
+            background-color: yellow;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #view-3d-btn:hover {
+            background-color: #f4c542;
+        }
+        #view-360-btn {
+    background-color: #6f42c1; /* Purple color */
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px; /* Space between the two buttons */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#view-360-btn:hover {
+    background-color: #5a2d91; /* Darker purple color on hover */
+}
+
+#view-360-btn svg {
+    margin-right: 5px; /* Space between the icon and text */
+}
+.view-360-box {
+    background-color: #6a1b9a; /* Purple color */
+    padding: 10px; /* Space around the button */
+    border-radius: 8px; /* Rounded corners */
+    display: inline-block; /* To fit around the button */
+    margin-top: 10px; /* Space between other content */
+}
+
+.btn-purple {
+    background-color: #6a1b9a; /* Purple button background */
+    color: #fff; /* White text color */
+    border: none; /* Remove border */
+}
+
+.btn-purple:hover {
+    background-color: #4a148c; /* Darker purple on hover */
+}
+.card {
+    /* Other styling for your card */
+    margin-bottom: 20px; /* Optional: Space below each card */
+}
+
+.know-more {
+    display: block; /* Ensure the button is on its own line */
+    margin-bottom: 15px; /* Space between KNOW MORE and VIEW IN 360 */
+}
+
+.view-360-box {
+    background-color: #6a1b9a; /* Purple color */
+    padding: 10px; /* Space around the button */
+    border-radius: 8px; /* Rounded corners */
+    display: inline-block; /* To fit around the button */
+}
+
+.btn-purple {
+    background-color: #6a1b9a; /* Purple button background */
+    color: #fff; /* White text color */
+    border: none; /* Remove border */
+}
+
+.btn-purple:hover {
+    background-color: #4a148c; /* Darker purple on hover */
+}
+/* Container for the Launch Flight Sim button */
+.launch-button-container {
+  display: flex;
+  justify-content: center; /* Center the button horizontally */
+  margin: 20px 0; /* Add margin for spacing */
+}
+
+/* Style for the Launch Flight Sim button */
+.launch-button {
+  background-color: yellow; /* Yellow background */
+  color: black; /* Black text */
+  border: none; /* Remove border */
+  padding: 15px 30px; /* Add padding for button size */
+  font-size: 16px; /* Font size */
+  cursor: pointer; /* Pointer cursor on hover */
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s ease; /* Smooth background color transition */
+}
+
+/* Hover effect for the button */
+.launch-button:hover {
+  background-color: #f0f0f0; /* Light grey background on hover */
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <img src="images/logo1.png" alt="Airbus Logo">
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <video autoplay muted loop>
+            <source src="images/gallery.mp4" type="video/mp4">
+            
+        </video>
+        <div class="overlay">
+     
+        </div>
+    </div>
+
+    <!-- Gallery Section -->
+<div class="gallery">
+    <h2>Aircraft Gallery</h2>
+    <div class="gallery-content">
+        
+
+<!-- Airbus A350 Card -->
+<div class="card">
+    <img src="images/a350.jpg" alt="Airbus A350">
+    <h3>Airbus A350</h3>
+    <p>The Airbus A350 is known for its fuel efficiency and advanced aerodynamics.</p>
+    <button class="btn btn-primary know-more" data-model="a350-model" data-info='{"name":"Airbus A350", "description":"The Airbus A350 features a composite fuselage and advanced wing designs. It is designed for long-haul flights with high fuel efficiency.", "wingspan":"64.8 meters", "cruisingAltitude":"41,000 feet", "engineThrust":"84,000 lbs", "maximumSpeed":"945 km/h"}'>KNOW MORE</button>
+    <a id="view-360-link-a350" href="https://visites360.aircaraibes.com/a350virtual/index.html" target="_blank">
+        <button id="view-360-btn-a350" class="btn btn-purple">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-360" viewBox="0 0 16 16">
+                <path d="M8 3.833a.5.5 0 0 0-1 0v3.337L5.47 6.064a.5.5 0 0 0-.94.058l-1.852 6.936a.5.5 0 0 0 .957.286L6.082 8.25l1.723 1.123a.5.5 0 0 0 .77-.417V3.833zM10.977 9.107a.5.5 0 0 0-.855.524l.678 1.14H6.415a.5.5 0 0 0 0 1h4.385l-.678 1.14a.5.5 0 1 0 .855.524l1.5-2.5a.5.5 0 0 0 0-.524l-1.5-2.5z"/>
+            </svg>
+            VIEW IN 360
+        </button>
+    </a>
+</div> 
+
+
+<!----Airbus A320 Card---->
+<div class="card">
+    <img src="images/a320.jpg" alt="Airbus A320">
+    <h3>Airbus A320</h3>
+    <p>The Airbus A320 is a narrow-body aircraft designed for short to medium-haul routes.</p>
+    <button class="btn btn-primary know-more" data-model="a320-model" data-info='{"name":"Airbus A320", "description":"The Airbus A320 is a narrow-body aircraft designed for short to medium-haul routes. It features a spacious cabin and advanced technology.", "wingspan":"35.8 meters", "cruisingAltitude":"35,000 feet", "engineThrust":"27,000 lbs", "maximumSpeed":"870 km/h"}'>KNOW MORE</button>
+    <a id="view-360-link-a320" href="https://ccntservice.airbus.com/apps/cockpits/a320/" target="_blank">
+        <button id="view-360-btn-a320" class="btn btn-purple">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-360" viewBox="0 0 16 16">
+                <path d="M8 3.833a.5.5 0 0 0-1 0v3.337L5.47 6.064a.5.5 0 0 0-.94.058l-1.852 6.936a.5.5 0 0 0 .957.286L6.082 8.25l1.723 1.123a.5.5 0 0 0 .77-.417V3.833zM10.977 9.107a.5.5 0 0 0-.855.524l.678 1.14H6.415a.5.5 0 0 0 0 1h4.385l-.678 1.14a.5.5 0 1 0 .855.524l1.5-2.5a.5.5 0 0 0 0-.524l-1.5-2.5z"/>
+            </svg>
+            VIEW IN 360
+        </button>
+    </a>
+</div>
+
+<!-- Airbus A380 Card -->
+<div class="card">
+    <img src="images/a380.jpg" alt="Airbus A380">
+    <h3>Airbus A380</h3>
+    <p>The Airbus A380 is the world's largest passenger airliner.</p>
+    <button class="btn btn-primary know-more" data-model="a380-model" data-info='{"name":"Airbus A380", "description":"The Airbus A380 is a double-deck, wide-body, four-engine jet that offers unmatched passenger capacity and comfort.", "wingspan":"79.8 meters", "cruisingAltitude":"43,000 feet", "engineThrust":"70,000 lbs", "maximumSpeed":"1020 km/h"}'>KNOW MORE</button>
+    <a id="view-360-link-a380" href="https://ccntservice.airbus.com/apps/cockpits/a380/" target="_blank">
+        <button id="view-360-btn-a380" class="btn btn-purple">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-360" viewBox="0 0 16 16">
+                <path d="M8 3.833a.5.5 0 0 0-1 0v3.337L5.47 6.064a.5.5 0 0 0-.94.058l-1.852 6.936a.5.5 0 0 0 .957.286L6.082 8.25l1.723 1.123a.5.5 0 0 0 .77-.417V3.833zM10.977 9.107a.5.5 0 0 0-.855.524l.678 1.14H6.415a.5.5 0 0 0 0 1h4.385l-.678 1.14a.5.5 0 1 0 .855.524l1.5-2.5a.5.5 0 0 0 0-.524l-1.5-2.5z"/>
+            </svg>
+            VIEW IN 360
+        </button>
+    </a>
+</div>
+
+<!-- Airbus A330 NEO -->
+<div class="card">
+    <img src="images/a330.jpg" alt="Airbus A330 NEO">
+    <h3>Airbus A330 NEO</h3>
+    <p>The Airbus A330 NEO is an upgraded, more efficient version of the A330, offering enhanced aerodynamics and advanced engines.</p>
+    <button class="btn btn-primary know-more" data-model="a330-neo-model" data-info='{"name":"Airbus A330 NEO", "description":"The Airbus A330 NEO is designed for long-haul flights with advanced aerodynamics, new engines, and improved fuel efficiency.", "wingspan":"64.0 meters", "cruisingAltitude":"41,000 feet", "engineThrust":"72,000 lbs", "maximumSpeed":"913 km/h"}'>KNOW MORE</button>
+    <a id="view-360-link-a330-neo" href="https://vrcloud.com/?pv=1489037714" target="_blank">
+        <button id="view-360-btn-a330-neo" class="btn btn-purple">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-360" viewBox="0 0 16 16">
+                <path d="M8 3.833a.5.5 0 0 0-1 0v3.337L5.47 6.064a.5.5 0 0 0-.94.058l-1.852 6.936a.5.5 0 0 0 .957.286L6.082 8.25l1.723 1.123a.5.5 0 0 0 .77-.417V3.833zM10.977 9.107a.5.5 0 0 0-.855.524l.678 1.14H6.415a.5.5 0 0 0 0 1h4.385l-.678 1.14a.5.5 0 1 0 .855.524l1.5-2.5a.5.5 0 0 0 0-.524l-1.5-2.5z"/>
+            </svg>
+            VIEW IN 360
+        </button>
+    </a>
+</div>
+
+
+<!-- Airbus A340 -->
+<div class="card">
+    <img src="images/a340 normal.jpg" alt="Airbus A340">
+    <h3>Airbus A340</h3>
+    <p>The Airbus A340 is a long-range, four-engine wide-body commercial passenger jet.</p>
+    <button class="btn btn-primary know-more" data-model="a340-model" data-info='{"name":"Airbus A340", "description":"The Airbus A340 is known for its long-haul capabilities and four-engine reliability.", "wingspan":"63.4 meters", "cruisingAltitude":"41,000 feet", "engineThrust":"60,000 lbs", "maximumSpeed":"913 km/h"}'>KNOW MORE</button>
+    <a id="view-360-link-a340" href="https://vrcloud.com/?pv=1472515200" target="_blank">
+        <button id="view-360-btn-a340" class="btn btn-purple">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-360" viewBox="0 0 16 16">
+                <path d="M8 3.833a.5.5 0 0 0-1 0v3.337L5.47 6.064a.5.5 0 0 0-.94.058l-1.852 6.936a.5.5 0 0 0 .957.286L6.082 8.25l1.723 1.123a.5.5 0 0 0 .77-.417V3.833zM10.977 9.107a.5.5 0 0 0-.855.524l.678 1.14H6.415a.5.5 0 0 0 0 1h4.385l-.678 1.14a.5.5 0 1 0 .855.524l1.5-2.5a.5.5 0 0 0 0-.524l-1.5-2.5z"/>
+            </svg>
+            VIEW IN 360
+        </button>
+    </a>
+</div> 
+
+<!-- Airbus A321 XLR NEO -->
+<div class="card">
+    <img src="images/a321.jpg" alt="Airbus A321 XLR NEO">
+    <h3>Airbus A321 XLR NEO</h3>
+    <p>The Airbus A321 XLR NEO is an extended long-range variant of the A321, offering unprecedented efficiency and range for single-aisle aircraft.</p>
+    <button class="btn btn-primary know-more" data-model="a321-xlr-neo-model" data-info='{"name":"Airbus A321 XLR NEO", "description":"The Airbus A321 XLR NEO is designed for long-haul flights with enhanced fuel efficiency and increased range, making it a game-changer in the single-aisle market.", "wingspan":"35.8 meters", "cruisingAltitude":"41,000 feet", "engineThrust":"33,000 lbs", "maximumSpeed":"876 km/h"}'>KNOW MORE</button>
+    <a id="view-360-link-a321-xlr-neo" href="https://ccntservice.airbus.com/apps/cockpits/a320/" target="_blank">
+        <button id="view-360-btn-a321-xlr-neo" class="btn btn-purple">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-360" viewBox="0 0 16 16">
+                <path d="M8 3.833a.5.5 0 0 0-1 0v3.337L5.47 6.064a.5.5 0 0 0-.94.058l-1.852 6.936a.5.5 0 0 0 .957.286L6.082 8.25l1.723 1.123a.5.5 0 0 0 .77-.417V3.833zM10.977 9.107a.5.5 0 0 0-.855.524l.678 1.14H6.415a.5.5 0 0 0 0 1h4.385l-.678 1.14a.5.5 0 1 0 .855.524l1.5-2.5a.5.5 0 0 0 0-.524l-1.5-2.5z"/>
+            </svg>
+            VIEW IN 360
+        </button>
+    </a>
+</div>
+
+
+
+        
+    </div>
+</div>
+
+<!-- Modal for Aircraft Information -->
+<div id="info-modal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close" id="close-info-modal">&times;</span>
+        <div id="info-content">
+            <!-- Aircraft info will be injected here -->
+        </div>
+        <button id="view-3d-btn" class="btn btn-warning">VIEW IN 3D</button>
+       
+    </div>
+</div>
+
+
+
+
+    <!-- 3D Model Viewer Modal -->
+    <div id="model-viewer-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" id="close-model-viewer">&times;</span>
+            <model-viewer id="model-viewer" src="" alt="3D model" auto-rotate camera-controls background-color="#000000">  
+            </model-viewer>
+        </div>
+    </div>
+    
+
+   
+    <div class="footer">
+        <p>&copy; 2024 Airbus. All rights reserved.</p>
+    </div>
+
+    
+    <div class="scroll-down">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 19L5 12H19L12 19Z" stroke="white"/>
+        </svg>
+    </div>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const knowMoreButtons = document.querySelectorAll('.know-more');
+            const infoModal = document.getElementById('info-modal');
+            const infoContent = document.getElementById('info-content');
+            const view3DBtn = document.getElementById('view-3d-btn');
+            const modelViewerModal = document.getElementById('model-viewer-modal');
+            const modelViewer = document.getElementById('model-viewer');
+            const closeInfoBtn = document.getElementById('close-info-modal');
+            const closeModelViewerBtn = document.getElementById('close-model-viewer');
+
+            knowMoreButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const info = JSON.parse(this.getAttribute('data-info'));
+                    const content = `
+                        <h2>${info.name}</h2>
+                        <p>${info.description}</p>
+                        <ul>
+                            <li><strong>Wingspan:</strong> ${info.wingspan}</li>
+                            <li><strong>Cruising Altitude:</strong> ${info.cruisingAltitude}</li>
+                            <li><strong>Engine Thrust:</strong> ${info.engineThrust}</li>
+                            <li><strong>Maximum Speed:</strong> ${info.maximumSpeed}</li>
+                        </ul>`;
+                    infoContent.innerHTML = content;
+                    view3DBtn.setAttribute('data-model', this.getAttribute('data-model'));
+                    infoModal.style.display = 'block';
+                });
+            });
+
+
+            view3DBtn.addEventListener('click', function() {
+                const modelSrc = this.getAttribute('data-model');
+                modelViewer.setAttribute('src', `models/${modelSrc}.gltf`);
+                infoModal.style.display = 'none';
+                modelViewerModal.style.display = 'block';
+            });
+
+            closeInfoBtn.addEventListener('click', function() {
+                infoModal.style.display = 'none';
+            });
+
+            closeModelViewerBtn.addEventListener('click', function() {
+                modelViewerModal.style.display = 'none';
+            });
+
+            window.addEventListener('click', function(event) {
+                if (event.target == infoModal) {
+                    infoModal.style.display = 'none';
+                } else if (event.target == modelViewerModal) {
+                    modelViewerModal.style.display = 'none';
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
+
+
+
+
+
